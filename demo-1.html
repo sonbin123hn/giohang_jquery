@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chi tiet</title>
+    <link rel="stylesheet" href="1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var getGio = 0;  
+            $('button').click(function(){
+                var getid = $(this).closest('ul li').attr('id');
+                var getName = $(this).closest('ul li').find('span.name input').val();
+                var getPrice = $(this).closest('ul li').find('h2.price input').val();
+                var getItem = $(this).closest('ul li').find('img.item').attr('src');
+                var getQuantity = '1';
+
+                var flag = true;
+                
+                var objcha = localStorage.getItem('json') ? JSON.parse(localStorage.getItem('json')) : {};
+
+                Object.keys(objcha).map(function(keys,index){
+                    if(keys === getid){
+                        objcha[keys]['quantity'] = parseInt(objcha[keys]['quantity']) + 1;
+                        flag = false;
+                    }
+                    
+                })
+
+                if(flag) { 
+                    var objcon = {}
+                    objcon.id = getid;
+                    objcon.item = getItem;
+                    objcon.price = getPrice;
+                    objcon.name = getName;
+                    objcon.quantity = getQuantity;
+
+                    objcha[getid] =objcon;
+
+                    getGio = getGio +1;
+                    $('.head').find('input.sl').attr('value' , getGio).show();
+                } else{
+                    getGio = getGio;
+                    $('.head').find('input.sl').attr('value' , getGio).show();
+                }
+                
+                localStorage.setItem('json',JSON.stringify(objcha))
+
+            })
+        })
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <div class="head">
+        <div class="container">
+            <a href="demo-giohang.html"><img src="image/unnamed.png" alt=""><input class="sl" type="text" value="0" style="display: none;"></a>
+        </div>
+    </div>
+    <div class="container">
+        <ul>
+            <li id="1">
+                <img class="item" src="image/nam1.jpg" alt="">
+                <h2 class="price">$35 <input type="text" value="35" style="display: none;"></h2>
+                <span class="name">ao nam 1<input type="text" value="ao nam 1" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            <li id="2">
+                <img class="item" src="image/nam2.jpg" alt="">
+                <h2 class="price">$45 <input type="text" value="45" style="display: none;"></h2>
+                <span class="name">ao nam2<input type="text" value="ao nam 2" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            <li id="3">
+                <img class="item" src="image/nam3.jpg" alt="">
+                <h2 class="price">$55 <input type="text" value="55" style="display: none;"></h2>
+                <span class="name">ao nam 3<input type="text" value="ao nam 3" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            <li id="4">
+                <img class="item" src="image/nu1.jpg" alt="">
+                <h2 class="price">$65 <input type="text" value="65" style="display: none;"></h2>
+                <span class="name">ao nu 1<input type="text" value="ao nu 1" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            <li id="5">
+                <img class="item" src="image/nu2.jpg" alt="">
+                <h2 class="price">$75 <input type="text" value="75" style="display: none;"></h2>
+                <span class="name">ao nu 2<input type="text" value="ao nu 2" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            <li id="6">
+                <img class="item" src="image/nu3.jpg" alt="">
+                <h2 class="price">$85 <input type="text" value="85" style="display: none;"></h2>
+                <span class="name">ao nu 3<input type="text" value="ao nu 3" style="display: none;"></span> <br>
+                <button>Add to cart</button>
+            </li>
+            
+           
+        </ul>
+    </div>
+</body>
+</html>

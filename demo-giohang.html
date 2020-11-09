@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gio hang</title>
+    <link rel="stylesheet" href="1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+
+            var objcha = localStorage.getItem('json') ? JSON.parse(localStorage.getItem('json')) : {};
+            
+            var html = '';
+            var fal = true;
+
+
+            Object.keys(objcha).map(function(keys,index){
+                var getid = objcha[keys]['id'];
+
+                var thanhtien = parseInt(objcha[keys]['price'])*parseInt(objcha[keys]['quantity']);
+
+                soluong = objcha[keys]['quantity'];
+
+                html+= "<tr id='"+ getid +"'>" +
+                        "<td>" +
+							"<img src='"+ objcha[keys]['item'] +"'>" +
+                            "<p>"+ objcha[keys]['name'] + "</p>" +
+						"</td>" +
+                        "<td>" + '$ <span>' + objcha[keys]['price'] + "</span></td>" +
+                        "<td>" + 
+                            "<button class='add'>+</button>" +
+                            "<input class='qty' value='"+ soluong +"'>" +
+                            "<button class='remove'>-</button>" +
+                        "</td>" +
+                        "<td class='tong'>" + thanhtien + "</td>" +
+                        "</tr>";
+
+                    $('table tbody').append(html);
+                     
+                
+            })
+
+
+            $('button.add').click(function(){
+                var id = $(this).closest('tr').attr('id');
+                
+                sl = $(this).closest('tr td').find('input.qty').val(); 
+
+                var tong = parseInt(sl) + 1;
+
+                $(this).closest('tr td').find('input.qty').val(tong);
+
+
+                var qty = $(this).closest('tr').find('span').text();
+                $('td.tong').text(parseInt(qty) * tong)
+
+                Object.keys(objcha).map(function(keys,index){
+                    if(keys === id){
+                        objcha[keys]['quantity'] = parseInt(objcha[keys]['quantity']) + 1;
+                        localStorage.setItem('json',JSON.stringify(objcha))
+                    }
+                })
+                
+
+            })
+
+            $('button.remove').click(function(){
+
+
+                var id = $(this).closest('tr').attr('id');
+                
+                sl = $(this).closest('tr td').find('input.qty').val(); 
+                
+                var hieu = parseInt(sl) - 1;
+                console.log(hieu)
+                if(hieu == 0){
+                    $(this).closest('tr').hide();
+                    console.log('a')
+                }
+                $(this).closest('tr td').find('input.qty').val(hieu);
+
+
+                var qty = $(this).closest('tr').find('span').text();
+                $('td.tong').text(parseInt(qty) * hieu)
+
+                
+
+                Object.keys(objcha).map(function(keys,index){
+                    if(keys === id){
+                        objcha[keys]['quantity'] = parseInt(objcha[keys]['quantity']) - 1;
+                    }
+                    if(objcha[keys]['quantity'] == 0){
+                        delete objcha[keys]
+                    }
+                })
+
+                localStorage.setItem('json',JSON.stringify(objcha))
+
+            })
+
+
+
+
+
+            localStorage.setItem('json',JSON.stringify(objcha))
+
+        })
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>item</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+

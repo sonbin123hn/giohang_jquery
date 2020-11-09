@@ -1,0 +1,51 @@
+*{padding: 0; margin: 0;}
+.head{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+.head img{
+    width: 50px;
+    height: 50px;
+}
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+.container ul{
+    width: 80%;
+    display: inline-block;
+}
+.container ul li{
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid blue;
+}
+.container ul li img{
+    width: 288px;
+    height: 288px;
+}
+/*  */
+.container table thead{
+    background-color: coral;
+    color: cornsilk;
+}
+tbody tr td img{
+    float: left;
+    width: 170px;
+    height: 150px;
+}
+tbody tr td{
+    text-align: center;
+}
+tbody tr td p{
+    text-align: center;
+    width: 100px;
+    float: left;
+    margin: 70px;
+}
+button{
+    margin: 0 20px;
+}
